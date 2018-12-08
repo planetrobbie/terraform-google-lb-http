@@ -80,7 +80,7 @@ resource "google_compute_backend_service" "default" {
   count           = "${length(var.backend_params)}"
   name            = "${var.name}-backend-${count.index}"
   port_name       = "${element(split(",", element(var.backend_params, count.index)), 1)}"
-  protocol        = "HTTP"
+  protocol        = "HTTPS"
   timeout_sec     = "${element(split(",", element(var.backend_params, count.index)), 3)}"
   backend         = ["${var.backends["${count.index}"]}"]
   health_checks   = ["${element(google_compute_https_health_check.default.*.self_link, count.index)}"]
